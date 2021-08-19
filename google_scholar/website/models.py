@@ -27,7 +27,7 @@ class Scholar(models.Model):
     id = models.CharField(max_length=20, help_text='Scholar User id', primary_key=True,
                           validators=[validators.scholar_id_validator])
     name = models.CharField(max_length=100, help_text='Scholar Name', blank=True)
-    organisations = models.ManyToManyField(Organisation, blank=True)
+    organisations = models.ManyToManyField(Organisation, blank=False)
 
     def __str__(self):
         return self.name
@@ -39,12 +39,12 @@ class Paper(models.Model):
     title: str
     url: url
     year: str (format 'yyyy')
-    author: str
+    scholars: Many to Many Field with Scholar
     citation: int
     """
     title = models.CharField(max_length=200)
     url = models.URLField()
-    author = models.OneToOneField(Scholar, on_delete=models.CASCADE)
+    scholars = models.ManyToManyField(Scholar, blank=False)
     year = models.CharField(max_length=4, validators=[validators.year_validator])
     citation = models.IntegerField()
 
