@@ -1,12 +1,11 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 from . import validators
 
 
 class Organisation(models.Model):
     """
-    Model of organisation/team to be Added
     name: str
     user: Foreign Key to User
     """
@@ -19,7 +18,6 @@ class Organisation(models.Model):
 
 class Scholar(models.Model):
     """
-    Model of Scholar
     id: str, PRIMARY KEY (It is the only thing which needs to be inputted)
     name: str
     organisations: Many to Many Field with Organisation
@@ -35,18 +33,16 @@ class Scholar(models.Model):
 
 class Paper(models.Model):
     """
-    Model of Research Paper Published
-    title: str
-    url: url
-    year: str (format 'yyyy')
-    scholars: Many to Many Field with Scholar
+    id: str, PRIMARY KEY (Must be added by script)
+    year: int (min -> 1000, max -> 9999)
     citation: int
+    scholars: Many to Many Field with Scholar
     """
-    title = models.CharField(max_length=200)
-    url = models.URLField()
-    scholars = models.ManyToManyField(Scholar, blank=False)
-    year = models.CharField(max_length=4, validators=[validators.year_validator])
+    id = models.CharField(max_length=20, primary_key=True)
+    year = models.IntegerField(validators=[MinValueValidator(1000), MaxValueValidator(9999)])
     citation = models.IntegerField()
+    scholars = models.ManyToManyField(Scholar)
 
     def __str__(self):
-        return self.title
+        return self.id
+
