@@ -8,8 +8,8 @@ This Project will Scrape data from Google Scholar and Find citations of a partic
 
 - [x] Create Models
 - [x] Automate Model filling by input
-- [] Create routes
-- [] Seprate Api module
+- [] Decide Routes
+- [] Seprate Api, Users module
 - [] Create a cron job to automate the updation of data every weekend
 - [] Create frontend
 
