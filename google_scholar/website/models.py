@@ -12,6 +12,9 @@ class Organisation(models.Model):
     name = models.CharField(max_length=250, help_text='Organisation Name', blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        unique_together = ['name', 'user']
+
     def __str__(self):
         return self.name
 

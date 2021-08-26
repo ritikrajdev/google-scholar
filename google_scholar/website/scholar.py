@@ -26,11 +26,11 @@ class Scholar:
             paper_id = row.find('a', class_='gsc_a_at')['href'].split(':')[-1]
 
             citations = row.find('a', class_='gsc_a_ac gs_ibl').text
-            citations = int(citations) if citations else 0
-
             year = row.find(class_='gsc_a_h gsc_a_hc gs_ibl').text
-            if year:
+
+            if year and citations:
                 year = int(year)
+                citations = int(citations)
             else:
                 continue
 
