@@ -5,7 +5,7 @@ from .scholar import Scholar as _Scholar
 
 
 @receiver(post_save, sender=Scholar)
-def create_papers(sender: Scholar, instance: Scholar, created, **kwargs):
+def create_papers_and_set_name(sender: Scholar, instance: Scholar, created, **kwargs):
     if created:
         scholar = _Scholar(instance.id)
 
