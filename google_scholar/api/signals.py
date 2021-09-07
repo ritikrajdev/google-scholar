@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import Scholar, Paper
-from .scholar import Scholar as _Scholar
+from .scripts.scholar import Scholar as _Scholar
 
 
 @receiver(post_save, sender=Scholar)
@@ -17,6 +17,7 @@ def create_papers_and_set_name(sender: Scholar, instance: Scholar, created, **kw
             if not pre_existing_paper:
                 citations = info['citations']
                 year = info['year']
-                instance.paper_set.create(id=paper_id, citation=citations, year=year)
+                instance.papers.create(id=paper_id, citation=citations, year=year)
             else:
                 pre_existing_paper[0].scholars.add(instance)
+
