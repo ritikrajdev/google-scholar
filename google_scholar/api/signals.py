@@ -5,7 +5,7 @@ from .scripts.scholar import Scholar as _Scholar
 
 
 @receiver(post_save, sender=Scholar)
-def create_papers_and_set_name(sender: Scholar, instance: Scholar, created, **kwargs):
+def post_save_scholar(sender: Scholar, instance: Scholar, created, **kwargs):
     if created:
         scholar = _Scholar(instance.id)
 
@@ -20,4 +20,3 @@ def create_papers_and_set_name(sender: Scholar, instance: Scholar, created, **kw
                 instance.papers.create(id=paper_id, citation=citations, year=year)
             else:
                 pre_existing_paper[0].scholars.add(instance)
-
